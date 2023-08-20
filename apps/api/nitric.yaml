@@ -1,0 +1,5 @@
+name: digihub-api
+handlers:
+  - src/main.ts
+preview-features:
+  - http

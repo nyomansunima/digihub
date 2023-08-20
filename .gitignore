@@ -1,6 +1,3 @@
-# compiled output
-dist/
-
 # Logs
 logs
 *.log
@@ -14,19 +11,20 @@ lerna-debug.log*
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-node_modules/
+node_modules
 .pnp
 .pnp.js
 
 # testing
 coverage
 
-# next.js
-.next/
-out/
+# compiled output
+.next
+out
+dist
 
 # production
-build/
+build
 
 # misc
 .DS_Store
@@ -42,7 +40,6 @@ yarn-error.log*
 
 # turbo
 .turbo
-
 
 # vercel
 .vercel

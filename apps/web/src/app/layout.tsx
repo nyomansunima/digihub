@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { DM_Sans } from 'next/font/google'
 import { FC } from 'react'
 import { BaseLayoutProps } from '~/types/component'
+import { QueryProvider } from '@components/provider/query-provider'
 
 // define the fonts used from google
 const dmSans = DM_Sans({ subsets: ['latin'] })
@@ -25,9 +26,11 @@ interface RootLayoutProps extends BaseLayoutProps {}
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={dmSans.className}>
+      <body
+        className={`${dmSans.className} text-base font-normal text-black bg-light leading-normal dark:bg-dark dark:text-neutral-100`}
+      >
         <ThemeProvider defaultTheme="system" enableSystem attribute="class">
-          {children}
+          <QueryProvider>{children}</QueryProvider>
         </ThemeProvider>
       </body>
     </html>

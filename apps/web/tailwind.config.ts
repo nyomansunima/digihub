@@ -18,9 +18,11 @@ const config: Config = {
       desktop: '1280px',
     },
     extend: {
-      accent: '#4732FF',
-      dark: '#4732FF',
-      light: '#FFFFFF',
+      colors: {
+        accent: '#4732FF',
+        dark: '#070311',
+        light: '#FFFFFF',
+      },
     },
   },
   plugins: [forms, aspectRatio, typography, animate],

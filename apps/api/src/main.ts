@@ -1,6 +1,9 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { http } from '@nitric/sdk'
+import { ValidationPipe } from '@nestjs/common'
+import compression from 'compression'
+import helmet from 'helmet'
 
 /**
  * Initializes the application and starts listening on the specified port.
@@ -10,6 +13,23 @@ import { http } from '@nitric/sdk'
  */
 async function bootstrap(port: number) {
   const app = await NestFactory.create(AppModule)
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: false,
+      transformOptions: {
+        excludeExtraneousValues: true,
+        enableImplicitConversion: true,
+      },
+    }),
+  )
+  app.use(compression())
+  app.use(helmet())
+  app.enableCors({
+    origin: '*',
+  })
+
   await app.listen(port)
 }
 

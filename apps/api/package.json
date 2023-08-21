@@ -17,9 +17,16 @@
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/throttler": "^4.2.1",
     "@nitric/sdk": "^0.15.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "compression": "^1.7.4",
+    "helmet": "^7.0.0",
+    "nestjs-fauna": "^1.0.8",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },

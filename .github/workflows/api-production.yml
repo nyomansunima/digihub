@@ -1,0 +1,67 @@
+# Deploy the backend service to production
+# into aws serverless.
+#
+# Use nitric as the main framework
+#
+# ***** NOTE *****
+# This workflow allow to run using secrets,
+# please provide the secret.
+
+name: Deploy Backend API to Production
+
+# Only run this workflow
+# when the actions start manually, or
+# push, merge code into main branch
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/api/**'
+
+# env need for actions
+env:
+  PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+
+jobs:
+  update:
+    name: Update Backend Service
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Setup Nodejs Environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Nitric CLI
+        uses: nitrictech/setup-nitric@v1
+        with:
+          version: 1.28.0
+
+      - name: Install dependencies
+        uses: pulumi/setup-pulumi@v2
+
+      - name: Checkout project
+        uses: actions/checkout@v3
+
+      - name: Resolve packages
+        working-directory: ./apps/api
+        run: npm install
+
+      - name: Create env file
+        working-directory: ./apps/api
+        run: |
+          echo "${{ secrets.API_ENV_FILE }}" > .env
+
+      - name: Deploy stack to production
+        working-directory: ./apps/api
+        run: nitric up -s prod -v0

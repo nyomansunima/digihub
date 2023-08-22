@@ -8,22 +8,22 @@ import { mergeClass } from '~/utils/style'
  * style component. Also can be used in any other element
  */
 const buttonVariants = cva(
-  'inline-flex items-center gap-3 justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center gap-3 justify-center rounded-md text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        primary: 'bg-accent text-neutral-100 hover:bg-accent/90',
         outline:
           'border border-neutral-100 dark:border-neutral-800 hover:bg-neutral-100/60 hover:dark:bg-neutral-800/60',
         secondary:
           'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-100/60 hover:dark:bg-neutral-800/60',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
+        link: 'hover:underline text-base font-medium',
       },
       size: {
-        base: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        md: 'h-11 px-5',
+        base: 'h-10 px-4 py-2 text-sm',
+        sm: 'h-9 rounded-md px-3 text-sm',
+        md: 'h-11 px-5 text-sm',
         lg: 'h-12 rounded-xl px-8',
         icon: 'h-10 w-10',
       },

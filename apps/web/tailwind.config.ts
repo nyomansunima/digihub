@@ -18,6 +18,9 @@ const config: Config = {
       desktop: '1280px',
     },
     extend: {
+      fontSize: {
+        base: '.9375rem',
+      },
       colors: {
         accent: '#4732FF',
         dark: '#070311',

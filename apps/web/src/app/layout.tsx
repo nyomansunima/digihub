@@ -5,6 +5,7 @@ import { DM_Sans } from 'next/font/google'
 import { FC } from 'react'
 import { BaseLayoutProps } from '~/types/component'
 import { QueryProvider } from '@components/provider/query-provider'
+import { AuthProvider } from '@components/provider/auth-provider'
 
 // define the fonts used from google
 const dmSans = DM_Sans({ subsets: ['latin'] })
@@ -30,7 +31,9 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
         className={`${dmSans.className} text-base font-normal text-black bg-light leading-normal dark:bg-dark dark:text-neutral-100`}
       >
         <ThemeProvider defaultTheme="system" enableSystem attribute="class">
-          <QueryProvider>{children}</QueryProvider>
+          <AuthProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

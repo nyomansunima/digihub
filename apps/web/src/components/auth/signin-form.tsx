@@ -1,20 +1,44 @@
 'use client'
 
 import { Button } from '@components/ui/button'
-import { Form } from '@components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@components/ui/form'
+import { Input } from '@components/ui/input'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Link from 'next/link'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
-import { signinFormValidaton } from '~/lib/validation/auth-validation'
+import { InferType, object, string } from 'yup'
+
+const formSchema = object({
+  email: string()
+    .min(1, 'Please fill the email address')
+    .email('Please use a valid email address'),
+  password: string()
+    .required('Please fill the password')
+    .min(8, 'Password at least 8 character length'),
+})
 
 const SigninForm: FC = () => {
-  const signinForm = useForm({
+  const signinForm = useForm<InferType<typeof formSchema>>({
     mode: 'onTouched',
-    resolver: yupResolver(signinFormValidaton),
+    resolver: yupResolver(formSchema) as any,
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   })
 
-  const emailPassAuth = useMutation(async (formData: any) => {})
+  const emailPassAuth = useMutation(
+    async (formData: InferType<typeof formSchema>) => {},
+  )
 
   return (
     <div className="flex flex-col w-7/12">
@@ -38,7 +62,52 @@ const SigninForm: FC = () => {
         Or signin using
       </span>
 
-      <Form context={signinForm} onSave={emailPassAuth.mutate}></Form>
+      <Form {...signinForm}>
+        <form
+          onSubmit={signinForm.handleSubmit(emailPassAuth.mutate)}
+          className="flex flex-col gap-3"
+        >
+          <FormField
+            control={signinForm.control}
+            name={'email'}
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Your email address" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={signinForm.control}
+            name={'password'}
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Your password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="flex justify-end mt-3">
+            <Button variant={'link'} asChild className="h-5">
+              <Link href="/forgot-password">Forgot Password</Link>
+            </Button>
+          </div>
+
+          <Button
+            variant={'primary'}
+            size={'lg'}
+            type="button"
+            className="mt-5"
+          >
+            Signin
+          </Button>
+        </form>
+      </Form>
     </div>
   )
 }

@@ -29,7 +29,7 @@ const getSession = async (): Promise<string> => {
  * with authentication feature included both in client and server
  *
  */
-const useApiConnection: <T extends Object>(
+const apiConnection: <T extends Object>(
   url: RequestInfo | URL,
   options?: APIConenctionOption,
 ) => Promise<T> = async (url, options) => {
@@ -77,4 +77,4 @@ const useApiConnection: <T extends Object>(
   }
 }
 
-export { useApiConnection }
+export { apiConnection }

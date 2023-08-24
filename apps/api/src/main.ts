@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { http } from '@nitric/sdk'
 import { ValidationPipe } from '@nestjs/common'
-import compression from 'compression'
+import * as compression from 'compression'
 import helmet from 'helmet'
 
 /**
@@ -19,7 +19,6 @@ async function bootstrap(port: number) {
       whitelist: true,
       forbidNonWhitelisted: false,
       transformOptions: {
-        excludeExtraneousValues: true,
         enableImplicitConversion: true,
       },
     }),

@@ -4,6 +4,8 @@ import { settingConfiguration } from './config/setting.config'
 import { FaunaModule } from 'nestjs-fauna'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { APP_GUARD } from '@nestjs/core'
+import { AuthModule } from './auth/auth.module'
+import { UserModule } from './user/user.module'
 
 @Global()
 @Module({
@@ -25,6 +27,8 @@ import { APP_GUARD } from '@nestjs/core'
     }),
 
     // TODO: Feature Module
+    UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [

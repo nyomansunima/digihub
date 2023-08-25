@@ -1,6 +1,6 @@
 import { VerifyEmailForm } from '@components/auth/verify-email-form'
 import { Metadata } from 'next'
-import { getServerSession } from 'next-auth'
+import { Session, getServerSession } from 'next-auth'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { authOptions } from '~/lib/config/auth'
@@ -10,12 +10,17 @@ export const metadata: Metadata = {
   description: 'Verify your email address to activate',
 }
 
-const VerifyEmailPage = async () => {
-  const session = await getServerSession(authOptions)
-
-  if (session?.user.verified) {
+// redirect the user
+// when user is already verified
+const checkUserVerification = (session: Session | null) => {
+  if (session && session.user.verified) {
     redirect('/')
   }
+}
+
+const VerifyEmailPage = async () => {
+  const session = await getServerSession(authOptions)
+  checkUserVerification(session)
 
   return (
     <main className="flex h-screen w-screen">

@@ -6,6 +6,7 @@ import { FC } from 'react'
 import { BaseLayoutProps } from '~/types/component'
 import { QueryProvider } from '@components/provider/query-provider'
 import { AuthProvider } from '@components/provider/auth-provider'
+import { Toaster } from '@components/ui/toaster'
 
 // define the fonts used from google
 const dmSans = DM_Sans({ subsets: ['latin'] })
@@ -32,7 +33,14 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
       >
         <ThemeProvider defaultTheme="system" enableSystem attribute="class">
           <AuthProvider>
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              <>
+                {children}
+
+                {/* top globals component */}
+                <Toaster />
+              </>
+            </QueryProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

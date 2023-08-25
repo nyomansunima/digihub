@@ -21,7 +21,7 @@ const SigninForm: FC = () => {
             signIn('google', { redirect: false, callbackUrl: '/verify-email' })
           }
           variant={'outline'}
-          size={'lg'}
+          size={'md'}
         >
           <i className="fi fi-brands-google" />
           Continue with Google
@@ -32,7 +32,7 @@ const SigninForm: FC = () => {
             signIn('github', { redirect: false, callbackUrl: '/verify-email' })
           }
           variant={'secondary'}
-          size={'lg'}
+          size={'md'}
         >
           <i className="fi fi-brands-github" />
           Continue with Github

@@ -16,6 +16,8 @@ import { useMutation } from 'react-query'
 import { InferType, object, string } from 'yup'
 import { apiConnection } from '~/utils/api-connection'
 import { useRouter } from 'next/navigation'
+import { secureEmailView } from '~/utils/hide-email'
+import { useToast } from '@components/ui/toaster'
 
 const formSchema = object({
   verificationCode: string().min(1, 'Plese fill the verification code'),
@@ -23,27 +25,6 @@ const formSchema = object({
 
 interface VerifyEmailFormProps {
   email: string
-}
-
-function hideEmail(email: string) {
-  const parts = email.split('@')
-
-  if (parts.length !== 2) {
-    // Invalid email format, return as is
-    return email
-  }
-
-  const username = parts[0]
-  const domain = parts[1]
-
-  const hiddenUsername =
-    username.length > 2
-      ? username[0] +
-        '*'.repeat(username.length - 2) +
-        username[username.length - 1]
-      : username
-
-  return hiddenUsername + '@' + domain
 }
 
 /**
@@ -54,6 +35,7 @@ function hideEmail(email: string) {
  */
 const VerifyEmailForm: FC<VerifyEmailFormProps> = ({ email }) => {
   const router = useRouter()
+  const { toast } = useToast()
   const form = useForm<InferType<typeof formSchema>>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema as any),
@@ -85,6 +67,12 @@ const VerifyEmailForm: FC<VerifyEmailFormProps> = ({ email }) => {
           form.setError('verificationCode', {
             message: 'Opps, your verification code looks weird.',
           })
+        } else {
+          toast({
+            title: 'Failed',
+            description:
+              'Opps, something wrong when try to verify your account. Please try again.',
+          })
         }
       },
     },
@@ -102,8 +90,19 @@ const VerifyEmailForm: FC<VerifyEmailFormProps> = ({ email }) => {
       }
     },
     {
-      onError: () => {},
-      onSuccess: () => {},
+      onError: () => {
+        toast({
+          title: 'Success',
+          description: 'Please check your inbox to see verification code',
+        })
+      },
+      onSuccess: () => {
+        toast({
+          title: 'Failed send verification',
+          description:
+            'Something happen when try to send you email verification. Please try again.',
+        })
+      },
     },
   )
 
@@ -113,9 +112,9 @@ const VerifyEmailForm: FC<VerifyEmailFormProps> = ({ email }) => {
         Verify your email address.
       </h2>
       <p className="mt-5 leading-relaxed text-neutral-600 dark:text-neutral-300">
-        We send an email to <strong>{hideEmail(email)}</strong>. Please check
-        yout inbox and get the actual code to verify. Please resend email if you
-        are not get one.
+        We send an email to <strong>{secureEmailView(email)}</strong>. Please
+        check yout inbox and get the actual code to verify. Please resend email
+        if you are not get one.
       </p>
 
       <div className="flex flex-col gap-3 mt-10">

@@ -23,7 +23,7 @@ const getAccessToken = async (): Promise<string> => {
 }
 
 /**
- * ## useApiConnection
+ * ## appiConnection
  *
  * Helper to help connec with the core backend api
  * with authentication feature included both in client and server

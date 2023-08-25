@@ -17,7 +17,9 @@ const SigninForm: FC = () => {
 
       <div className="flex flex-col gap-3 mt-12">
         <Button
-          onClick={() => signIn('google', { redirect: false })}
+          onClick={() =>
+            signIn('google', { redirect: false, callbackUrl: '/verify-email' })
+          }
           variant={'outline'}
           size={'lg'}
         >
@@ -26,7 +28,9 @@ const SigninForm: FC = () => {
         </Button>
 
         <Button
-          onClick={() => signIn('github', { redirect: false })}
+          onClick={() =>
+            signIn('github', { redirect: false, callbackUrl: '/verify-email' })
+          }
           variant={'secondary'}
           size={'lg'}
         >

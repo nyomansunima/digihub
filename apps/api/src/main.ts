@@ -6,7 +6,7 @@ import * as compression from 'compression'
 import helmet from 'helmet'
 
 /**
- * Initializes the application and starts listening on the specified port.
+ * Initialize the application and starts listening on the specified port.
  *
  * @param {number} port - The port number to listen on.
  * @return {Promise<void>} - A promise that resolves when the application is successfully started.

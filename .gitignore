@@ -30,6 +30,8 @@ build
 .DS_Store
 *.pem
 
+
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -52,7 +54,10 @@ yarn-error.log*
 next-env.d.ts
 
 # OS
-.DS_Store
+.DS_Sto
+
+# React email
+.react-email
 
 # Tests
 coverage

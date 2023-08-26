@@ -2,14 +2,6 @@
 
 ![Github preview Banner](https://github.com/nyomansunima/digihub/assets/54091887/7b8dd05a-f1cb-4b9e-9920-e26fcfd29daa)
 
-# DigiHub
-
-**Make money form your little time**
-
-<br/>
-
-[**🐛 Issues**](https://github.com/nyomansunima/digihub/issues) . [**🚀 View Demo**](https://digihub.sonibble.com)
-
 ![GitHub language count](https://img.shields.io/github/languages/count/nyomansunima/digihub?color=green&label=Languages)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/nyomansunima/digihub?color=pink&label=Code%20Size)
 ![GitHub all releases](https://img.shields.io/github/downloads/nyomansunima/digihub/total)
@@ -19,6 +11,16 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/nyomansunima/digihub?color=green)
 
 ---
+
+<br/>
+
+# DigiHub
+
+**Make money form your little time**
+
+<br/>
+
+[**🐛 Issues**](https://github.com/nyomansunima/digihub/issues) . [**🚀 View Demo**](https://digihub.sonibble.com)
 
 <br/>
 
@@ -51,7 +53,15 @@ While building this application, Here are some of Stacks and other reference tha
 - [GSAP](https://greenshock.com)
 - [Next.JS](https://nextjs.org)
 - [Vercel](https://vercel.com)
-- [Turborepo](https://turbo.build)
+- [Resend](https://resend.com)
+- [React Email](https://react.email)
+- [Shadcn UI](https://ui.shadcn.com)
+- [Vercel](https://vercel.com)
+- [Nest.JS](https://nestjs.com)
+- [Nest.JS](https://nestjs.com)
+- [Nest.JS](https://nestjs.com)
+- [Pulumi](https://pulumi.com)
+- [AWS](https://aws.amazon.com)
 
 <br/>
 

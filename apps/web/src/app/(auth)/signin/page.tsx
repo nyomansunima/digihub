@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 const SigninPage: FC = () => {
   return (
     <main className="flex h-screen w-screen">
-      <section className="flex flex-col w-1/2 justify-center items-center">
+      <section className="flex flex-col px-5 laptop:px-0 laptop:w-1/2 justify-center items-center">
         <Button
           asChild
           variant={'outline'}
           size={'sm'}
-          className="absolute top-6 left-24"
+          className="absolute top-6 laptop:left-24 left-5"
         >
           <Link href={'/'}>
             <i className="fi fi-rr-arrow-left" />
@@ -27,7 +27,7 @@ const SigninPage: FC = () => {
         </Button>
         <SigninForm />
       </section>
-      <section className="flex justify-center items-center w-1/2 bg-[#5F35FF] my-2 mr-2 rounded-2xl">
+      <section className="hidden laptop:flex justify-center items-center w-1/2 bg-[#5F35FF] dark:bg-[#23155B] my-2 mr-2 rounded-2xl">
         <Image
           src="/images/illustrations/call_waiting.svg"
           height="518"

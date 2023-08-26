@@ -10,7 +10,7 @@ import { FC } from 'react'
  */
 const SigninForm: FC = () => {
   return (
-    <div className="flex flex-col w-7/12">
+    <div className="flex flex-col laptop:w-7/12">
       <h2 className="text-4xl font-medium !leading-tight">
         Start explore the goodies.
       </h2>

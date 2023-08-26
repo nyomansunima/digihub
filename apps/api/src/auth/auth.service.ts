@@ -118,7 +118,7 @@ export class AuthService {
   async googleAuth(input: GoogleAuthInput): Promise<AuthPayload> {
     const googleUser = await this.oauthService.retrieveGoogleUser(input)
     const user = await this.userService.signGoogleUser(googleUser)
-    await this.sendEmailVerification(user)
+    this.sendEmailVerification(user)
     const token = await this.generateNewToken(user)
 
     return token
@@ -127,7 +127,7 @@ export class AuthService {
   async githubAuth(input: GithubAuthInput): Promise<AuthPayload> {
     const githubUser = await this.oauthService.retrieveGithubUser(input)
     const user = await this.userService.signGithubUser(githubUser)
-    await this.sendEmailVerification(user)
+    this.sendEmailVerification(user)
     const token = await this.generateNewToken(user)
 
     return token
@@ -135,7 +135,7 @@ export class AuthService {
 
   async emailPasswordAuth(input: EmailPasswordAuthInput): Promise<AuthPayload> {
     const user = await this.userService.signEmailPassUser(input)
-    await this.sendEmailVerification(user)
+    this.sendEmailVerification(user)
     const token = await this.generateNewToken(user)
 
     return token

@@ -10,25 +10,29 @@ import { FC } from 'react'
  */
 const SigninForm: FC = () => {
   return (
-    <div className="flex flex-col w-7/12">
+    <div className="flex flex-col laptop:w-7/12">
       <h2 className="text-4xl font-medium !leading-tight">
         Start explore the goodies.
       </h2>
 
       <div className="flex flex-col gap-3 mt-12">
         <Button
-          onClick={() => signIn('google', { redirect: false })}
+          onClick={() =>
+            signIn('google', { redirect: false, callbackUrl: '/verify-email' })
+          }
           variant={'outline'}
-          size={'lg'}
+          size={'md'}
         >
           <i className="fi fi-brands-google" />
           Continue with Google
         </Button>
 
         <Button
-          onClick={() => signIn('github', { redirect: false })}
+          onClick={() =>
+            signIn('github', { redirect: false, callbackUrl: '/verify-email' })
+          }
           variant={'secondary'}
-          size={'lg'}
+          size={'md'}
         >
           <i className="fi fi-brands-github" />
           Continue with Github

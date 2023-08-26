@@ -14,10 +14,16 @@ const middleware = async (req: NextRequest) => {
   if (token && path.includes('/signin')) {
     return NextResponse.redirect(new URL('/', req.url))
   }
+
+  if (!token && path.includes('/verify')) {
+    return NextResponse.redirect(new URL('/signin', req.url))
+  }
+
+  return NextResponse.next()
 }
 
 export default middleware
 
 // configs for the
 // middleware
-export const config = { matcher: ['/signin'] }
+export const config = { matcher: ['/signin', '/verify-email'] }

@@ -48,6 +48,16 @@ export class UserService {
     }
   }
 
+  async findUserById(userId: string): Promise<UserPayload> {
+    try {
+      const query = fql`users.byId(${userId})`
+      const res = await this.faunaService.query<any>(query)
+      return res.data
+    } catch (error) {
+      return
+    }
+  }
+
   async createNewUser(input: CreateUserInput): Promise<UserPayload> {
     try {
       const query = fql`users.create(${input as any})`
@@ -71,6 +81,7 @@ export class UserService {
         email: input.email,
         providers: ['google'],
         role: 'user',
+        verified: false,
         username: this.generateUsernameFromEmail(input.email),
         avatar: input.picture,
       }
@@ -94,6 +105,7 @@ export class UserService {
         email: input.email,
         providers: ['github'],
         role: 'user',
+        verified: false,
         username: this.generateUsernameFromEmail(input.email),
         avatar: input.avatar_url,
         location: input.location,
@@ -115,6 +127,7 @@ export class UserService {
         username: this.generateUsernameFromEmail(input.email),
         providers: ['email-password'],
         role: 'user',
+        verified: false,
         password: this.securePassword(input.password),
       }
 
@@ -129,5 +142,18 @@ export class UserService {
     }
 
     return user
+  }
+
+  async activateAccount(userId: string): Promise<void> {
+    try {
+      const input: UpdateUserInput = {
+        verified: true,
+      }
+
+      const query = fql`users.byId(${userId})!.update(${input as any})`
+      await this.faunaService.query<any>(query)
+    } catch (error) {
+      throw new UnprocessableEntityException()
+    }
   }
 }

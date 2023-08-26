@@ -14,6 +14,7 @@ export class User {
   location?: string
   phoneNumber?: string
   bio?: string
+  verified: boolean
 }
 
 export class UserPayload extends OmitType(User, ['password'] as const) {

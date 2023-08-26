@@ -7,13 +7,13 @@ interface APIConenctionOption extends RequestInit {
 // retrive the token in every single request needed
 // this will useful when the resource need the
 // credential to access resources
-const getSession = async (): Promise<string> => {
+const getAccessToken = async (): Promise<string> => {
   try {
     const res = await fetch('/api/auth/session')
 
     if (res.ok) {
       const data = await res.json()
-      return data
+      return data.accessToken
     } else {
       throw await res.json()
     }
@@ -23,7 +23,7 @@ const getSession = async (): Promise<string> => {
 }
 
 /**
- * ## useApiConnection
+ * ## appiConnection
  *
  * Helper to help connec with the core backend api
  * with authentication feature included both in client and server
@@ -33,15 +33,16 @@ const apiConnection: <T extends Object>(
   url: RequestInfo | URL,
   options?: APIConenctionOption,
 ) => Promise<T> = async (url, options) => {
-  const baseUrl = process.env.BACKEND_API_URL!
+  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL
   let defaultOption: APIConenctionOption = {
     headers: {
       'Content-Type': 'application/json',
       accept: 'application/json, text/plain, */*,image/webp',
     },
   }
+
   if (options?.auth) {
-    const accessToken = getSession()
+    const accessToken = await getAccessToken()
     defaultOption = {
       ...defaultOption,
       headers: {
@@ -67,8 +68,12 @@ const apiConnection: <T extends Object>(
     })
 
     if (res.ok) {
-      const data = await res.json()
-      return data
+      try {
+        const data = await res.json()
+        return data
+      } catch (error) {
+        return
+      }
     } else {
       throw await res.json()
     }

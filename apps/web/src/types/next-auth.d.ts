@@ -23,7 +23,7 @@ declare module 'next-auth' {
       providers: string[]
       avatar?: string
       fullName?: string
-      isVerified: boolean
+      verified: boolean
       role: string
     }
   }

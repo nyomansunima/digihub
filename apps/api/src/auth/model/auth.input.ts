@@ -25,3 +25,9 @@ export class EmailPasswordAuthInput {
   @IsNotEmpty()
   password: string
 }
+
+export class VerifyUserEmailTokenInput {
+  @IsString()
+  @IsNotEmpty()
+  verificationCode: string
+}

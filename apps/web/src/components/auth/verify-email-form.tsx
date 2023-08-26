@@ -46,17 +46,13 @@ const VerifyEmailForm: FC<VerifyEmailFormProps> = ({ email }) => {
     async (formData: InferType<typeof formSchema>) => {
       const { verificationCode } = formData
 
-      try {
-        return await apiConnection<any>('/auth/email-verification', {
-          method: 'POST',
-          body: {
-            verificationCode,
-          },
-          auth: true,
-        })
-      } catch (error) {
-        throw error
-      }
+      return await apiConnection<any>('/auth/email-verification', {
+        method: 'POST',
+        body: {
+          verificationCode,
+        },
+        auth: true,
+      })
     },
     {
       onSuccess: () => {
@@ -80,14 +76,10 @@ const VerifyEmailForm: FC<VerifyEmailFormProps> = ({ email }) => {
 
   const resendEmailVerification = useMutation(
     async () => {
-      try {
-        return await apiConnection<any>('/auth/resend-email-verification', {
-          method: 'POST',
-          auth: true,
-        })
-      } catch (error) {
-        throw error
-      }
+      return await apiConnection<any>('/auth/resend-email-verification', {
+        method: 'POST',
+        auth: true,
+      })
     },
     {
       onError: () => {
@@ -145,7 +137,14 @@ const VerifyEmailForm: FC<VerifyEmailFormProps> = ({ email }) => {
               size={'md'}
               className="mt-4"
             >
-              {verifyEmailCode.isLoading ? 'Verifing ....' : 'Verify'}
+              {verifyEmailCode.isLoading ? (
+                <>
+                  Verifying ...
+                  <i className="fi fi-rr-spinner absolute right-4" />
+                </>
+              ) : (
+                'Verify'
+              )}
             </Button>
 
             <Button
@@ -156,9 +155,14 @@ const VerifyEmailForm: FC<VerifyEmailFormProps> = ({ email }) => {
               size={'md'}
               className="mt-3"
             >
-              {resendEmailVerification.isLoading
-                ? 'Resending email ...'
-                : 'Resend email'}
+              {resendEmailVerification.isLoading ? (
+                <>
+                  Sending email ...
+                  <i className="fi fi-rr-spinner absolute right-4" />
+                </>
+              ) : (
+                'Resend email'
+              )}
             </Button>
           </form>
         </Form>

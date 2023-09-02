@@ -21,12 +21,14 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName
 
 const toastVariants = cva(
-  'group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-xl border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full',
+  'group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-xl border p-4 transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full',
   {
     variants: {
       variant: {
         default:
           'border border-neutral-100 bg-light text-black dark:bg-dark dark:text-neutral-100 dark:border-neutral-800',
+        error: '',
+        success: 'bg-green-50',
       },
     },
     defaultVariants: {
@@ -43,12 +45,29 @@ const Toast = React.forwardRef<
   return (
     <ToastPrimitives.Root
       ref={ref}
-      className={mergeClass(toastVariants({ variant }), className)}
+      className={mergeClass(
+        toastVariants({ variant }),
+        className,
+        `group-${variant}`,
+      )}
       {...props}
     />
   )
 })
 Toast.displayName = ToastPrimitives.Root.displayName
+
+interface ToastIconProps {
+  icon: string
+}
+
+const ToastIcon: React.FC<ToastIconProps> = ({ icon }): React.ReactElement => {
+  return (
+    <i
+      className={`${icon} bg-white h-10 w-10 rounded-full border border-neutral-100 group-[success]:text-green-600`}
+    ></i>
+  )
+}
+ToastIcon.displayName = 'ToastIcon'
 
 const ToastAction = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Action>,
@@ -121,4 +140,5 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  ToastIcon,
 }

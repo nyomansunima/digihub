@@ -9,6 +9,7 @@ import {
   ToastViewport,
   ToastActionElement,
   ToastProps,
+  ToastIcon,
 } from '@components/ui/toast'
 import * as React from 'react'
 
@@ -16,13 +17,14 @@ import * as React from 'react'
 // allow to manage toast to display and
 // also limit time to hide the toast
 const TOAST_LIMIT = 3
-const TOAST_REMOVE_DELAY = 1000
+const TOAST_REMOVE_DELAY = 1000000000
 
 type ToasterToast = ToastProps & {
   id: string
   title?: React.ReactNode
   description?: React.ReactNode
   action?: ToastActionElement
+  icon?: string
 }
 
 const actionTypes = {
@@ -214,10 +216,18 @@ export const Toaster: React.FC = () => {
 
   return (
     <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
+      {toasts.map(function ({
+        id,
+        title,
+        description,
+        action,
+        icon,
+        ...props
+      }) {
         return (
           <Toast key={id} {...props}>
             <div className="grid gap-1">
+              {icon && <ToastIcon icon={icon} />}
               {title && <ToastTitle>{title}</ToastTitle>}
               {description && (
                 <ToastDescription>{description}</ToastDescription>

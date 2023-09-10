@@ -14,7 +14,7 @@ export class EmailService {
   ): Promise<void> {
     try {
       const payload: CreateEmailOptions = {
-        from: 'onboarding@sonibble.com',
+        from: 'verify@sonibble.com',
         to: user.email,
         subject: 'Activate DigiHub Account',
         react: React.createElement(VerifyEmailTemplate, {

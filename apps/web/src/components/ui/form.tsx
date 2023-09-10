@@ -97,7 +97,11 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={mergeClass(error && 'text-destructive', className)}
+      className={mergeClass(
+        error && '!text-red-600',
+        'ml-2 text-sm text-neutral-700',
+        className,
+      )}
       htmlFor={formItemId}
       {...props}
     />
@@ -165,7 +169,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={mergeClass('text-sm text-red-600', className)}
+      className={mergeClass('text-sm text-red-600 ml-3', className)}
       {...props}
     >
       {body}
